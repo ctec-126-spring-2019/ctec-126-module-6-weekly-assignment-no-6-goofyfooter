@@ -8,26 +8,24 @@
 
 class PlayingCard {
     constructor(element, face, suit) {
-        /*
-        Create properties for:
-        - element
-        - suit
-        - face
-        - img (set this to `img/${face}_of_${suit}.png`)
-        - state (set this to 0)
-        */
+   
 
-        // your code goes here (remove this comment once you have added your code)
+        this.element = element
+        this.suit = suit
+        this.face = face
+        this.img = `img/${face}_of_${suit}.png`
+        this.state = 0
+        
 
         this.element.addEventListener('click', () => {
-            /*
-            - The event listener should be for a click event
-            - The event listener should have logic to switch out the this.element.src
-            - It should also change the state if the card is flipped (this.state 0 or 1)
-            - To show the back of the card use 'img/back.png'
-            */
-
-            // your code goes here (remove this comment once you have added your code)
+           
+            if (this.state == 0) {
+                this.element.src = this.img
+                this.state = 1
+            } else if (this.state == 1) {
+                this.element.src = 'img/back.png'
+                this.state = 0
+            }
         })
     }
 
@@ -41,23 +39,17 @@ class PlayingCard {
 }
 
 function createCardImage() {
-    /*
-    - Create a constant named img and have it create a new img element
-    - Set the src property of the img to 'img/back.png'
-    - return the img
-    */
-
-    // your code goes here (remove this comment once you have added your code)
+    const img = document.createElement('img')
+    img.src = 'img/back.png'
+    return img
 }
 
 function displayDeck() {
-    /*
-    - Create a loop that iterates through each card in the deck array
-    - in the loop, append the card.element to the container
-    - Use a forEach with an arrow function
-    */
 
-    // your code goes here (remove this comment once you have added your code)
+    deck.forEach(card => {
+        container.appendChild(card.element)
+    })
+
 }
 
 function shuffleDeck() {
@@ -83,14 +75,11 @@ function buildDeck() {
 
     suits.forEach(suit => {
         faces.forEach(face => {
-            /*
-            - Call the createdCardImage() function and assign the return img element to a variable named image
-            - Set the id attribute of the image to `${face}_of_${suit}.png`
-            - Use the .push method to push a new PlayingCard object into the deck array
-            - Do the .push and object creation in a single statement
-            */
-
-            // your code goes here (remove this comment once you have added your code)
+           
+            const image = createCardImage()
+            image.setAttribute('id', `${face}_of_${suit}.png`)
+            deck.push(new PlayingCard(image, face, suit))
+            
         })
     })
 }
